@@ -1,3 +1,14 @@
+-- Table de paciente
+CREATE TABLE consultorio.paciente (
+	nombre varchar (100) not null,
+	edad int not null CHECK (edad > 0),
+	foto varchar(100) not null,
+	telefono int not null,
+	religion varchar(10) not null,
+	tratamiento varchar (100) not null,
+	id_paciente serial primary key
+);
+
 -- Tabla de las citas
 CREATE TABLE consultorio.cita (
 	num_sesion int not null,
@@ -9,15 +20,11 @@ CREATE TABLE consultorio.cita (
 	references consultorio.paciente (id_paciente)
 );
 
--- Table de paciente
-CREATE TABLE consultorio.paciente (
-	nombres varchar (100) not null,
-	edad int not null CHECK (edad > 0),
-	foto varchar(100) not null,
+-- Tabla de parientes
+CREATE TABLE consultorio.pariente (
+	nombre varchar (100) not null,
 	telefono int not null,
-	religion varchar(10) not null,
-	tratamiento varchar (100) not null,
-	id_paciente serial primary key
+	id_pariente serial primary key
 );
 
 -- Tabla del pariente del paciente, información de la re
@@ -29,13 +36,6 @@ CREATE TABLE consultorio.paciente_pariente (
 	constraint pariente_fk foreign key (id_pariente)
 	references consultorio.pariente (id_pariente),
 	primary key (id_paciente, id_pariente)
-);
-
--- Tabla de parientes
-CREATE TABLE consultorio.pariente (
-	nombre varchar (100) not null,
-	telefono int not null,
-	id_pariente serial primary key
 );
 
 -- Tabla del personal
@@ -59,21 +59,7 @@ CREATE TABLE consultorio.medicamentos (
 	precio int not null,
 	tratamiento varchar(100) not null
 );
--- Registros de paciente_pariente
-INSERT INTO consultorio.paciente_pariente (id_paciente,id_pariente )
-VALUES (15,3);
 
-INSERT INTO consultorio.paciente_pariente (id_paciente,id_pariente )
-VALUES (16,4);
-
-INSERT INTO consultorio.paciente_pariente (id_paciente,id_pariente )
-VALUES (17,5);
-
-INSERT INTO consultorio.paciente_pariente (id_paciente,id_pariente )
-VALUES (18,7);
-
-INSERT INTO consultorio.paciente_pariente (id_paciente,id_pariente )
-VALUES (19,6);
 
 -- Agregar registros a la tabla de pacientes
 INSERT INTO consultorio.paciente (nombre, edad, foto, telefono, religion, tratamiento)
@@ -107,22 +93,40 @@ VALUES ('Elizabeth Peñaloza Gonzáles', 554879163);
 INSERT INTO consultorio.pariente (nombre, telefono)
 VALUES ('Eduardo Javier Loera Smith', 554789624);
 
+-- Registros de paciente_pariente
+INSERT INTO consultorio.paciente_pariente (id_paciente,id_pariente )
+VALUES (1,1);
+
+INSERT INTO consultorio.paciente_pariente (id_paciente,id_pariente )
+VALUES (2,2);
+
+INSERT INTO consultorio.paciente_pariente (id_paciente,id_pariente )
+VALUES (3,3);
+
+INSERT INTO consultorio.paciente_pariente (id_paciente,id_pariente )
+VALUES (4,4);
+
+INSERT INTO consultorio.paciente_pariente (id_paciente,id_pariente )
+VALUES (5,5);
+
+
+
 
 -- Agregar registros a la tabla de citas5
 INSERT INTO consultorio.cita (num_sesion, fecha, motivo, paciente)
-VALUES (1, '2023-12-14', 'Consulta inicial', 15);
+VALUES (1, '2023-12-14', 'Consulta inicial', 1);
 
 INSERT INTO consultorio.cita (num_sesion, fecha, motivo, paciente)
-VALUES (3, '2024-01-04', 'Tratar infección', 16);
+VALUES (3, '2024-01-04', 'Tratar infección', 2);
 
 INSERT INTO consultorio.cita (num_sesion, fecha, motivo, paciente)
-VALUES (2, '2023-12-27', 'Terapia hormonal', 17);
+VALUES (2, '2023-12-27', 'Terapia hormonal', 3);
 
 INSERT INTO consultorio.cita (num_sesion, fecha, motivo, paciente)
-VALUES (2, '2024-01-04', 'Tratar cáncer', 18);
+VALUES (2, '2024-01-04', 'Tratar cáncer', 4);
 
 INSERT INTO consultorio.cita (num_sesion, fecha, motivo, paciente)
-VALUES (1, '2024-01-16', 'Tratar infección', 19);
+VALUES (1, '2024-01-16', 'Tratar infección', 5);
 
 -- Agregar registros a la tabla de medicamentos
 INSERT INTO consultorio.medicamentos (nombre_medicamento, cantidad, precio, tratamiento)
